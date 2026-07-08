@@ -23,7 +23,7 @@ Expérience-type : jeu d'observation "Cherche l'IA cachée" dans une journée or
 Expérience-type : "Le perroquet devin" — l'utilisateur devient l'IA et parie sur le mot suivant. Il éprouve physiquement que prédire ≠ comprendre.
 
 **3. ★ L'IA apprend par l'exemple**
-> « On ne programme pas une IA avec des règles : on la nourrit avec des millions d'exemples. »
+> « On ne programme pas une IA avec des règles : on la nourrit avec des exemples, et sa qualité dépend d'eux. »
 Expérience-type : l'utilisateur "entraîne" un mini-classificateur (chats/chiens) avec trop peu d'exemples, puis assez — il voit la performance changer.
 
 **4. L'IA générative fabrique du neuf à partir de l'ancien**

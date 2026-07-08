@@ -28,7 +28,8 @@
           "id": "apprend-par-exemple",
           "ordre": 3,
           "titre": "L'IA apprend par l'exemple",
-          "activiteType": "aVenir"
+          "activiteType": "renard",
+          "activiteId": "renard-fruits"
         },
         {
           "id": "ni-intention-ni-emotion",

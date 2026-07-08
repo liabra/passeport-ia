@@ -117,7 +117,10 @@ qu'inventer.* `docs/referentiel.md` fait foi.
 - `content/parcours.json` reprend exactement les 6 territoires / 17 étapes du
   Noyau citoyen dans l'ordre canonique.
 - Les phrases de cristallisation des activités sont copiées mot pour mot depuis le
-  référentiel (notions 2 et 7).
+  référentiel (notions 2, 3 et 7).
+- **Journal des évolutions du référentiel** : notion 3 reformulée — la
+  variété/qualité des exemples prime sur la quantité, cohérent avec l'activité du
+  renard ; validé par la cofondatrice.
 - Les étapes non encore développées portent `"activiteType": "aVenir"` (sans
   `activiteId`) : le schéma zod l'exige, et elles affichent l'écran « en cours de
   fabrication ». Le chemin reste bloquant.

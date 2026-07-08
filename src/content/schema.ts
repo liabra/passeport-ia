@@ -11,7 +11,7 @@ import { z } from "zod";
 export const FRAGILITE = ["faible", "moyenne", "haute"] as const;
 export const fragiliteSchema = z.enum(FRAGILITE);
 
-export const TYPES_ACTIVITE = ["perroquet", "intrus"] as const;
+export const TYPES_ACTIVITE = ["perroquet", "intrus", "renard"] as const;
 
 /* ------------------------------------------------------------------ */
 /* Activité « perroquet »                                              */
@@ -158,6 +158,71 @@ export const intrusDonneesSchema = z
   });
 
 /* ------------------------------------------------------------------ */
+/* Activité « renard » (manipulation directe : apprendre par l'exemple)*/
+/* ------------------------------------------------------------------ */
+
+export const renardCategorieSchema = z.enum(["mur", "pas_mur"]);
+
+/** Attributs encodés en petits entiers : ils alimentent le classifieur jouet. */
+const renardAttributsSchema = z.object({
+  couleur: z.number().int().min(0),
+  forme: z.number().int().min(0),
+  texture: z.number().int().min(0),
+});
+
+const renardItemSchema = z.object({
+  id: z.string().min(1),
+  libelle: z.string().min(1),
+  categorieVraie: renardCategorieSchema,
+  attributs: renardAttributsSchema,
+});
+
+const renardVerificationSchema = z.object({
+  question: z.string().min(1),
+  choix: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        label: z.string().min(1),
+        correct: z.boolean(),
+        retour: z.string().min(1),
+      }),
+    )
+    .length(2),
+});
+
+export const renardDonneesSchema = z
+  .object({
+    exemplesPhase1: z.array(renardItemSchema).length(2),
+    exemplesPhase2: z.array(renardItemSchema).length(8),
+    test: z.array(renardItemSchema).length(4),
+    revelationPhase1: z.string().min(1),
+    revelationPhase2: z.string().min(1),
+    verification: renardVerificationSchema,
+  })
+  .superRefine((donnees, ctx) => {
+    // Le test doit contenir les deux catégories (sinon aucune leçon).
+    const cats = new Set(donnees.test.map((i) => i.categorieVraie));
+    if (cats.size < 2) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Le test doit contenir des fruits mûrs ET pas mûrs",
+        path: ["test"],
+      });
+    }
+    const nbCorrect = donnees.verification.choix.filter((c) => c.correct).length;
+    if (nbCorrect !== 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `La question de vérification doit avoir exactement 1 bonne réponse (trouvé ${nbCorrect})`,
+        path: ["verification", "choix"],
+      });
+    }
+    // La garantie « phase 1 échoue / phase 2 réussit » est vérifiée par un test
+    // unitaire dédié (contenu et classifieur sont co-conçus).
+  });
+
+/* ------------------------------------------------------------------ */
 /* Activité (union discriminée par `type`)                             */
 /* ------------------------------------------------------------------ */
 
@@ -177,6 +242,10 @@ export const activiteSchema = z.discriminatedUnion("type", [
   baseActiviteSchema.extend({
     type: z.literal("intrus"),
     donnees: intrusDonneesSchema,
+  }),
+  baseActiviteSchema.extend({
+    type: z.literal("renard"),
+    donnees: renardDonneesSchema,
   }),
 ]);
 
@@ -281,6 +350,10 @@ export type Fragilite = z.infer<typeof fragiliteSchema>;
 export type Activite = z.infer<typeof activiteSchema>;
 export type ActivitePerroquet = Extract<Activite, { type: "perroquet" }>;
 export type ActiviteIntrus = Extract<Activite, { type: "intrus" }>;
+export type ActiviteRenard = Extract<Activite, { type: "renard" }>;
+export type RenardCategorie = z.infer<typeof renardCategorieSchema>;
+export type RenardItem = z.infer<typeof renardItemSchema>;
+export type RenardAttributs = RenardItem["attributs"];
 export type Etape = z.infer<typeof etapeSchema>;
 export type Territoire = z.infer<typeof territoireSchema>;
 export type Parcours = z.infer<typeof parcoursSchema>;

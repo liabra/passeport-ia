@@ -33,9 +33,16 @@ describe("parcours canonique (source de vérité, toujours complet)", () => {
     expect(getActivite(intrus.activiteId!)).not.toBeNull();
   });
 
+  it("rattache l'activité renard à l'étape canonique 3", () => {
+    const renard = etapesCanoniques.find((e) => e.ordre === 3)!;
+    expect(renard.activiteType).toBe("renard");
+    expect(renard.activiteId).toBe("renard-fruits");
+    expect(getActivite(renard.activiteId!)).not.toBeNull();
+  });
+
   it("marque les autres étapes comme « aVenir » sans activiteId", () => {
     const aVenir = etapesCanoniques.filter((e) => e.activiteType === "aVenir");
-    expect(aVenir).toHaveLength(15);
+    expect(aVenir).toHaveLength(14);
     for (const e of aVenir) expect(e.activiteId).toBeUndefined();
   });
 });
@@ -54,8 +61,8 @@ describe("sentier de découverte (projection jouable)", () => {
     }
   });
 
-  it("suit l'ordre pédagogique relatif : perroquet puis intrus", () => {
-    expect(sentier.etapes).toEqual(["perroquet-devin", "cherche-intrus"]);
+  it("suit l'ordre pédagogique canonique : perroquet, renard, intrus", () => {
+    expect(sentier.etapes).toEqual(["perroquet-devin", "apprend-par-exemple", "cherche-intrus"]);
   });
 });
 
@@ -66,8 +73,8 @@ describe("parcours actif (dépend de NEXT_PUBLIC_PARCOURS_ACTIF)", () => {
   });
 
   if (modeParcours === "sentier") {
-    it("mode sentier : 2 étapes, toutes jouables de bout en bout", () => {
-      expect(nombreEtapes).toBe(2);
+    it("mode sentier : 3 étapes, toutes jouables de bout en bout", () => {
+      expect(nombreEtapes).toBe(3);
       for (const e of etapes) {
         expect(e.activiteType).not.toBe("aVenir");
         expect(getActivite(e.activiteId!)).not.toBeNull();

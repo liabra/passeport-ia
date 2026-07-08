@@ -1,0 +1,119 @@
+{
+  "id": "renard-fruits",
+  "type": "renard",
+  "notion": "L'IA apprend par l'exemple",
+  "phraseCristallisation": "On ne programme pas une IA avec des règles : on la nourrit avec des exemples, et sa qualité dépend d'eux.",
+  "dureeMin": 3,
+  "fragilite": "faible",
+  "donnees": {
+    "exemplesPhase1": [
+      {
+        "id": "p1-fraise-rouge",
+        "libelle": "Fraise rouge (mûre)",
+        "categorieVraie": "mur",
+        "attributs": { "couleur": 2, "forme": 3, "texture": 1 }
+      },
+      {
+        "id": "p1-raisin-vert",
+        "libelle": "Raisin vert (pas mûr)",
+        "categorieVraie": "pas_mur",
+        "attributs": { "couleur": 0, "forme": 3, "texture": 0 }
+      }
+    ],
+    "exemplesPhase2": [
+      {
+        "id": "p2-pomme-rouge",
+        "libelle": "Pomme rouge (mûre)",
+        "categorieVraie": "mur",
+        "attributs": { "couleur": 2, "forme": 0, "texture": 1 }
+      },
+      {
+        "id": "p2-banane-verte",
+        "libelle": "Banane verte (pas mûre)",
+        "categorieVraie": "pas_mur",
+        "attributs": { "couleur": 0, "forme": 1, "texture": 0 }
+      },
+      {
+        "id": "p2-pomme-verte",
+        "libelle": "Pomme verte (mûre)",
+        "categorieVraie": "mur",
+        "attributs": { "couleur": 0, "forme": 0, "texture": 1 }
+      },
+      {
+        "id": "p2-prune-rouge",
+        "libelle": "Prune rouge (pas mûre)",
+        "categorieVraie": "pas_mur",
+        "attributs": { "couleur": 2, "forme": 2, "texture": 0 }
+      },
+      {
+        "id": "p2-fraise-rouge",
+        "libelle": "Fraise rouge (mûre)",
+        "categorieVraie": "mur",
+        "attributs": { "couleur": 2, "forme": 3, "texture": 1 }
+      },
+      {
+        "id": "p2-raisin-vert",
+        "libelle": "Raisin vert (pas mûr)",
+        "categorieVraie": "pas_mur",
+        "attributs": { "couleur": 0, "forme": 3, "texture": 0 }
+      },
+      {
+        "id": "p2-banane-jaune",
+        "libelle": "Banane jaune (mûre)",
+        "categorieVraie": "mur",
+        "attributs": { "couleur": 1, "forme": 1, "texture": 1 }
+      },
+      {
+        "id": "p2-prune-violette",
+        "libelle": "Prune violette (pas mûre)",
+        "categorieVraie": "pas_mur",
+        "attributs": { "couleur": 3, "forme": 2, "texture": 0 }
+      }
+    ],
+    "test": [
+      {
+        "id": "t-pomme-rouge",
+        "libelle": "Pomme rouge",
+        "categorieVraie": "mur",
+        "attributs": { "couleur": 2, "forme": 0, "texture": 1 }
+      },
+      {
+        "id": "t-banane-verte",
+        "libelle": "Banane verte",
+        "categorieVraie": "pas_mur",
+        "attributs": { "couleur": 0, "forme": 1, "texture": 0 }
+      },
+      {
+        "id": "t-pomme-verte",
+        "libelle": "Pomme verte",
+        "categorieVraie": "mur",
+        "attributs": { "couleur": 0, "forme": 0, "texture": 1 }
+      },
+      {
+        "id": "t-prune-rouge",
+        "libelle": "Prune rouge",
+        "categorieVraie": "pas_mur",
+        "attributs": { "couleur": 2, "forme": 2, "texture": 0 }
+      }
+    ],
+    "revelationPhase1": "Ton renard a fait de son mieux… mais avec 2 exemples, il a inventé une règle trop simple. Ce n'est pas ta faute : c'est ce que tu lui as montré.",
+    "revelationPhase2": "Mêmes questions, meilleur résultat — et pourtant tu n'as touché à aucun réglage. Tu as juste montré plus d'exemples, plus variés. C'est comme ça qu'apprend une IA.",
+    "verification": {
+      "question": "Pourquoi le renard a-t-il mieux réussi la deuxième fois ?",
+      "choix": [
+        {
+          "id": "plus-exemples",
+          "label": "On lui a montré plus d'exemples, variés",
+          "correct": true,
+          "retour": "Exactement. Tu n'as rien réglé : tu as seulement montré davantage d'exemples, et plus variés. Les exemples sont ce qui fabrique la compétence."
+        },
+        {
+          "id": "mieux-regle",
+          "label": "On l'a mieux réglé",
+          "correct": false,
+          "retour": "En fait, non : tu n'as touché à aucun réglage. Seuls les exemples ont changé — et ça a suffi à tout changer."
+        }
+      ]
+    }
+  }
+}

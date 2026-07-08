@@ -8,6 +8,7 @@ import { estAccessible } from "@/lib/progression";
 import { EcranChargement } from "@/components/EcranChargement";
 import { PerroquetActivity } from "./PerroquetActivity";
 import { IntrusActivity } from "./IntrusActivity";
+import { RenardActivity } from "./RenardActivity";
 import { PlaceholderActivite } from "./PlaceholderActivite";
 import { TamponScreen } from "./TamponScreen";
 import type { ResultatActivite } from "./types";
@@ -64,6 +65,9 @@ export function EtapeRunner({ id }: { id: string }) {
 
   if (activite.type === "perroquet") {
     return <PerroquetActivity activite={activite} onTermine={terminer} />;
+  }
+  if (activite.type === "renard") {
+    return <RenardActivity activite={activite} onTermine={terminer} />;
   }
   return <IntrusActivity activite={activite} onTermine={terminer} />;
 }
