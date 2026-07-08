@@ -1,0 +1,22 @@
+{
+  "name": "Passeport IA",
+  "short_name": "Passeport IA",
+  "description": "Un voyage à travers six territoires pour comprendre l'intelligence artificielle, une notion à la fois.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2ECDB",
+  "theme_color": "#F2ECDB",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "/icone.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

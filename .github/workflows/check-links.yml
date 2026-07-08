@@ -1,0 +1,26 @@
+name: Vérification des liens externes
+
+# Les « ponts vers le réel » du contenu peuvent casser avec le temps.
+# Job séparé : hebdomadaire et déclenchable à la main.
+on:
+  schedule:
+    - cron: "0 6 * * 1" # tous les lundis à 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  liens:
+    name: Toutes les URL de /content répondent en 200
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Vérifier les liens
+        run: node scripts/check-links.mjs

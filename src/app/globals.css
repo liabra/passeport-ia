@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    /* Base 17px minimum (accessibilité). */
+    font-size: 106.25%;
+  }
+
+  body {
+    @apply bg-papier text-encre font-corps;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-titre;
+  }
+
+  /* Focus visible épais et contrasté, jamais masqué. */
+  :focus-visible {
+    outline: 3px solid theme("colors.rouge-gr");
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Lien d'évitement (skip link). */
+  .lien-evitement {
+    @apply absolute left-2 top-2 z-50 -translate-y-16 rounded-md bg-encre px-4 py-2 text-carte shadow-carte transition-transform;
+  }
+  .lien-evitement:focus {
+    @apply translate-y-0;
+  }
+}
+
+@layer utilities {
+  /* Fond « papier vieilli » subtil, sans image externe (offline-safe, CSP-safe). */
+  .fond-papier {
+    background-color: theme("colors.papier");
+    background-image: radial-gradient(
+        theme("colors.papier-profond") 0.5px,
+        transparent 0.5px
+      ),
+      radial-gradient(theme("colors.papier-profond") 0.5px, theme("colors.papier") 0.5px);
+    background-size: 22px 22px;
+    background-position:
+      0 0,
+      11px 11px;
+  }
+}
+
+/* Respect strict de prefers-reduced-motion : on coupe animations et transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

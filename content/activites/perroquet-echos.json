@@ -1,0 +1,82 @@
+{
+  "id": "perroquet-echos",
+  "type": "perroquet",
+  "notion": "La prédiction du mot suivant",
+  "phraseCristallisation": "Une IA ne sait pas : elle prédit le mot le plus probable, appris sur d'immenses quantités de textes.",
+  "dureeMin": 4,
+  "fragilite": "moyenne",
+  "donnees": {
+    "manches": [
+      {
+        "id": "m1-echauffement",
+        "kind": "echauffement",
+        "phrase": "Il pleut des cordes, n'oublie pas ton ___",
+        "options": [
+          { "id": "parapluie", "mot": "parapluie", "pourcentage": 87 },
+          { "id": "manteau", "mot": "manteau", "pourcentage": 7 },
+          { "id": "chapeau", "mot": "chapeau", "pourcentage": 4 },
+          { "id": "velo", "mot": "vélo", "pourcentage": 2 }
+        ],
+        "reveleTexte": "La foule parie « parapluie » à 87 %. Facile : ce mot suit presque toujours « il pleut »."
+      },
+      {
+        "id": "m2-ambiguite",
+        "kind": "ambiguite",
+        "phrase": "Après le dîner, Léa a posé le plat sur la ___",
+        "options": [
+          { "id": "table", "mot": "table", "pourcentage": 52 },
+          { "id": "etagere", "mot": "étagère", "pourcentage": 23 },
+          { "id": "cuisiniere", "mot": "cuisinière", "pourcentage": 15 },
+          { "id": "fenetre", "mot": "fenêtre", "pourcentage": 10 }
+        ],
+        "reveleTexte": "Ici la foule hésite : plusieurs mots sont plausibles. « table » l'emporte, mais rien n'est sûr — comme pour une IA."
+      },
+      {
+        "id": "m3-piege",
+        "kind": "piege",
+        "phrase": "Sur leur tête, les Vikings portaient des casques à ___",
+        "options": [
+          { "id": "cornes", "mot": "cornes", "pourcentage": 78 },
+          { "id": "pointes", "mot": "pointes", "pourcentage": 12 },
+          { "id": "plumes", "mot": "plumes", "pourcentage": 6 },
+          { "id": "ailes", "mot": "ailes", "pourcentage": 4 }
+        ],
+        "reveleTexte": "La foule (et l'IA) parie « cornes » à 78 %.",
+        "verite": {
+          "texte": "Or aucun casque de guerre viking à cornes n'a jamais été retrouvé. L'image vient des opéras du XIXe siècle, pas de l'histoire.",
+          "messageSuiviFoule": "Comme la plupart des gens — et comme une IA — vous avez suivi l'image la plus répandue. C'est exactement là qu'est le piège : le plus fréquent n'est pas le vrai.",
+          "messageContreFoule": "Vous n'avez pas suivi la foule. Une IA, elle, aurait presque sûrement répondu « cornes » : elle rejoue ce qui est fréquent, pas ce qui est vrai."
+        }
+      },
+      {
+        "id": "m4-invente",
+        "kind": "invente",
+        "phrase": "Le brolduc a très faim : il dévore une ___",
+        "options": [
+          { "id": "pomme", "mot": "pomme", "pourcentage": 71 },
+          { "id": "fenetre", "mot": "fenêtre", "pourcentage": 11 },
+          { "id": "idee", "mot": "idée", "pourcentage": 10 },
+          { "id": "chanson", "mot": "chanson", "pourcentage": 8 }
+        ],
+        "reveleTexte": "« brolduc » n'existe pas. Et pourtant chacun parie — comme une IA — sur ce qui « sonne » juste après « dévore une », sans rien comprendre."
+      }
+    ],
+    "verification": {
+      "question": "Quand le perroquet a parié « parapluie », qu'a-t-il fait ?",
+      "choix": [
+        {
+          "id": "il-sait",
+          "label": "Il sait qu'il pleut",
+          "correct": false,
+          "retour": "Presque, mais non : il ne sait rien de la pluie. Il a seulement remarqué que « parapluie » suit très souvent « il pleut »."
+        },
+        {
+          "id": "cest-frequent",
+          "label": "C'est le mot le plus fréquent ici",
+          "correct": true,
+          "retour": "Exactement. Il ne comprend pas la phrase : il rejoue le mot qui, d'habitude, vient à cette place."
+        }
+      ]
+    }
+  }
+}

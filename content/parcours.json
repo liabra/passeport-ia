@@ -1,0 +1,180 @@
+{
+  "titre": "Le Noyau citoyen",
+  "territoires": [
+    {
+      "id": "vallee-des-mots",
+      "nom": "La Vallée des Mots",
+      "couleur": "foret",
+      "sousTitre": "Comment une IA choisit ses mots",
+      "etapes": [
+        {
+          "id": "mots-perroquet",
+          "ordre": 1,
+          "titre": "Le jeu du perroquet",
+          "activiteId": "perroquet-echos",
+          "activiteType": "perroquet",
+          "pontVersLeReel": {
+            "libelle": "Comprendre l'IA, expliqué par la CNIL",
+            "url": "https://www.cnil.fr/fr/intelligence-artificielle-ia"
+          }
+        }
+      ]
+    },
+    {
+      "id": "foret-des-sources",
+      "nom": "La Forêt des Sources",
+      "couleur": "eau",
+      "sousTitre": "Vérifier ce qu'une IA raconte",
+      "etapes": [
+        {
+          "id": "sources-intrus",
+          "ordre": 2,
+          "titre": "L'enquête de l'intrus",
+          "activiteId": "intrus-tour-eiffel",
+          "activiteType": "intrus",
+          "pontVersLeReel": {
+            "libelle": "Le site officiel de la tour Eiffel",
+            "url": "https://www.toureiffel.paris/fr"
+          }
+        },
+        {
+          "id": "sources-croiser",
+          "ordre": 3,
+          "titre": "Croiser deux sources",
+          "activiteId": "intrus-deux-sources",
+          "activiteType": "intrus"
+        },
+        {
+          "id": "sources-citer",
+          "ordre": 4,
+          "titre": "Une IA peut-elle citer ?",
+          "activiteId": "perroquet-citation",
+          "activiteType": "perroquet"
+        }
+      ]
+    },
+    {
+      "id": "plateau-des-images",
+      "nom": "Le Plateau des Images",
+      "couleur": "ocre",
+      "sousTitre": "Ce qu'une IA voit et invente",
+      "etapes": [
+        {
+          "id": "images-generer",
+          "ordre": 5,
+          "titre": "D'où viennent les images",
+          "activiteId": "perroquet-images",
+          "activiteType": "perroquet"
+        },
+        {
+          "id": "images-detail",
+          "ordre": 6,
+          "titre": "Le détail qui cloche",
+          "activiteId": "intrus-photo",
+          "activiteType": "intrus"
+        },
+        {
+          "id": "images-vrai-faux",
+          "ordre": 7,
+          "titre": "Vraie photo, fausse photo",
+          "activiteId": "intrus-photo-reelle",
+          "activiteType": "intrus"
+        }
+      ]
+    },
+    {
+      "id": "gorges-du-doute",
+      "nom": "Les Gorges du Doute",
+      "couleur": "rouge-gr",
+      "sousTitre": "Erreurs, biais et incertitude",
+      "etapes": [
+        {
+          "id": "doute-erreur",
+          "ordre": 8,
+          "titre": "Se tromper avec aplomb",
+          "activiteId": "intrus-erreur",
+          "activiteType": "intrus"
+        },
+        {
+          "id": "doute-biais",
+          "ordre": 9,
+          "titre": "Le miroir des données",
+          "activiteId": "perroquet-biais",
+          "activiteType": "perroquet"
+        },
+        {
+          "id": "doute-incertitude",
+          "ordre": 10,
+          "titre": "Mesurer son doute",
+          "activiteId": "perroquet-incertitude",
+          "activiteType": "perroquet"
+        }
+      ]
+    },
+    {
+      "id": "col-des-decisions",
+      "nom": "Le Col des Décisions",
+      "couleur": "encre-douce",
+      "sousTitre": "Quand une IA aide à décider",
+      "etapes": [
+        {
+          "id": "decisions-tri",
+          "ordre": 11,
+          "titre": "Trier des candidatures",
+          "activiteId": "intrus-decision",
+          "activiteType": "intrus"
+        },
+        {
+          "id": "decisions-recours",
+          "ordre": 12,
+          "titre": "Le droit de dire non",
+          "activiteId": "perroquet-recours",
+          "activiteType": "perroquet"
+        },
+        {
+          "id": "decisions-humain",
+          "ordre": 13,
+          "titre": "Garder la main",
+          "activiteId": "intrus-humain",
+          "activiteType": "intrus"
+        }
+      ]
+    },
+    {
+      "id": "sommet-citoyen",
+      "nom": "Le Sommet Citoyen",
+      "couleur": "foret",
+      "sousTitre": "Vivre avec l'IA, en citoyen",
+      "etapes": [
+        {
+          "id": "citoyen-donnees",
+          "ordre": 14,
+          "titre": "Mes données, mon choix",
+          "activiteId": "perroquet-donnees",
+          "activiteType": "perroquet"
+        },
+        {
+          "id": "citoyen-empreinte",
+          "ordre": 15,
+          "titre": "Le coût caché",
+          "activiteId": "intrus-empreinte",
+          "activiteType": "intrus"
+        },
+        {
+          "id": "citoyen-usages",
+          "ordre": 16,
+          "titre": "À bon escient",
+          "activiteId": "perroquet-usages",
+          "activiteType": "perroquet"
+        },
+        {
+          "id": "citoyen-passeport",
+          "ordre": 17,
+          "titre": "Le tampon du sommet",
+          "activiteId": "intrus-sommet",
+          "activiteType": "intrus"
+        }
+      ]
+    }
+  ]
+}

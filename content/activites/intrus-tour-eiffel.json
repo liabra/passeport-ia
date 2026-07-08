@@ -1,0 +1,55 @@
+{
+  "id": "intrus-tour-eiffel",
+  "type": "intrus",
+  "notion": "La vérification des faits",
+  "phraseCristallisation": "Une IA peut glisser un détail faux au milieu de détails vrais, sans même le savoir. À nous de vérifier.",
+  "dureeMin": 5,
+  "fragilite": "haute",
+  "donnees": {
+    "reglage": "cette réponse a été produite par une IA sans accès internet",
+    "reponse": {
+      "parts": [
+        { "kind": "texte", "texte": "La tour Eiffel, à Paris, a été " },
+        {
+          "kind": "detail",
+          "id": "d1-annee",
+          "texte": "achevée en 1889 pour l'Exposition universelle",
+          "invente": false,
+          "encyclopedie": {
+            "article": "Tour Eiffel — construction",
+            "extrait": "Conçue par l'ingénieur Gustave Eiffel, la tour est inaugurée le 31 mars 1889, à l'occasion de l'Exposition universelle de Paris.",
+            "surligne": "inaugurée le 31 mars 1889, à l'occasion de l'Exposition universelle",
+            "sources": ["site officiel de la tour Eiffel (2025)", "Encyclopædia Universalis"]
+          }
+        },
+        { "kind": "texte", "texte": ". Elle mesure aujourd'hui " },
+        {
+          "kind": "detail",
+          "id": "d2-hauteur",
+          "texte": "environ 330 mètres avec ses antennes",
+          "invente": false,
+          "encyclopedie": {
+            "article": "Tour Eiffel — dimensions",
+            "extrait": "Avec ses antennes, la tour Eiffel culmine à environ 330 mètres ; sans elles, elle atteint 300 mètres.",
+            "surligne": "environ 330 mètres",
+            "sources": ["site officiel de la tour Eiffel (2025)", "Encyclopædia Universalis"]
+          }
+        },
+        { "kind": "texte", "texte": ". À son sommet, " },
+        {
+          "kind": "detail",
+          "id": "d3-restaurant",
+          "texte": "depuis 1972, un restaurant panoramique nommé « Le Nuage » accueille les visiteurs",
+          "invente": true,
+          "encyclopedie": {
+            "article": "Tour Eiffel — restaurants",
+            "extrait": "La tour compte deux restaurants : une brasserie au premier étage et le restaurant gastronomique « Le Jules Verne » au deuxième étage. Le sommet n'accueille aucun restaurant.",
+            "surligne": "Le sommet n'accueille aucun restaurant",
+            "sources": ["site officiel de la tour Eiffel (2025)", "Encyclopædia Universalis"]
+          }
+        },
+        { "kind": "texte", "texte": "." }
+      ]
+    }
+  }
+}
