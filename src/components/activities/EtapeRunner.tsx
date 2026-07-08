@@ -36,7 +36,7 @@ export function EtapeRunner({ id }: { id: string }) {
   if (!charge || !etape) return <EcranChargement />;
 
   const territoire = getTerritoireDeEtape(id);
-  const activite = getActivite(etape.activiteId);
+  const activite = etape.activiteId ? getActivite(etape.activiteId) : null;
 
   async function terminer(r: ResultatActivite) {
     await enregistrer({

@@ -2,177 +2,162 @@
   "titre": "Le Noyau citoyen",
   "territoires": [
     {
-      "id": "vallee-des-mots",
-      "nom": "La Vallée des Mots",
+      "id": "ia-demystifiee",
+      "nom": "L'IA démystifiée",
       "couleur": "foret",
-      "sousTitre": "Comment une IA choisit ses mots",
+      "sousTitre": "Ce qu'elle est, ce qu'elle n'est pas",
       "etapes": [
         {
-          "id": "mots-perroquet",
+          "id": "ia-dans-ma-vie",
           "ordre": 1,
-          "titre": "Le jeu du perroquet",
-          "activiteId": "perroquet-echos",
+          "titre": "L'IA est déjà dans ma vie",
+          "activiteType": "aVenir"
+        },
+        {
+          "id": "perroquet-devin",
+          "ordre": 2,
+          "titre": "Le perroquet devin",
           "activiteType": "perroquet",
+          "activiteId": "perroquet-echos",
           "pontVersLeReel": {
-            "libelle": "Comprendre l'IA, expliqué par la CNIL",
-            "url": "https://www.cnil.fr/fr/intelligence-artificielle-ia"
+            "libelle": "Le mythe des casques à cornes, côté archéologie",
+            "url": "https://fr.wikipedia.org/wiki/Casque_%C3%A0_cornes"
           }
+        },
+        {
+          "id": "apprend-par-exemple",
+          "ordre": 3,
+          "titre": "L'IA apprend par l'exemple",
+          "activiteType": "aVenir"
+        },
+        {
+          "id": "ni-intention-ni-emotion",
+          "ordre": 4,
+          "titre": "L'IA n'a ni intention, ni émotion",
+          "activiteType": "aVenir"
+        },
+        {
+          "id": "memoire-ou-recherche",
+          "ordre": 5,
+          "titre": "Mémoire ou recherche ?",
+          "activiteType": "aVenir"
         }
       ]
     },
     {
-      "id": "foret-des-sources",
-      "nom": "La Forêt des Sources",
-      "couleur": "eau",
-      "sousTitre": "Vérifier ce qu'une IA raconte",
+      "id": "pourquoi-elle-se-trompe",
+      "nom": "Pourquoi elle se trompe",
+      "couleur": "rouge-gr",
+      "sousTitre": "Erreurs, biais et aplomb",
       "etapes": [
         {
-          "id": "sources-intrus",
-          "ordre": 2,
-          "titre": "L'enquête de l'intrus",
-          "activiteId": "intrus-tour-eiffel",
+          "id": "cherche-intrus",
+          "ordre": 6,
+          "titre": "Cherche l'intrus",
           "activiteType": "intrus",
+          "activiteId": "intrus-tour-eiffel",
           "pontVersLeReel": {
-            "libelle": "Le site officiel de la tour Eiffel",
+            "libelle": "La vraie page de la tour Eiffel",
             "url": "https://www.toureiffel.paris/fr"
           }
         },
         {
-          "id": "sources-croiser",
-          "ordre": 3,
-          "titre": "Croiser deux sources",
-          "activiteId": "intrus-deux-sources",
-          "activiteType": "intrus"
-        },
-        {
-          "id": "sources-citer",
-          "ordre": 4,
-          "titre": "Une IA peut-elle citer ?",
-          "activiteId": "perroquet-citation",
-          "activiteType": "perroquet"
-        }
-      ]
-    },
-    {
-      "id": "plateau-des-images",
-      "nom": "Le Plateau des Images",
-      "couleur": "ocre",
-      "sousTitre": "Ce qu'une IA voit et invente",
-      "etapes": [
-        {
-          "id": "images-generer",
-          "ordre": 5,
-          "titre": "D'où viennent les images",
-          "activiteId": "perroquet-images",
-          "activiteType": "perroquet"
-        },
-        {
-          "id": "images-detail",
-          "ordre": 6,
-          "titre": "Le détail qui cloche",
-          "activiteId": "intrus-photo",
-          "activiteType": "intrus"
-        },
-        {
-          "id": "images-vrai-faux",
+          "id": "ton-confiant",
           "ordre": 7,
-          "titre": "Vraie photo, fausse photo",
-          "activiteId": "intrus-photo-reelle",
-          "activiteType": "intrus"
-        }
-      ]
-    },
-    {
-      "id": "gorges-du-doute",
-      "nom": "Les Gorges du Doute",
-      "couleur": "rouge-gr",
-      "sousTitre": "Erreurs, biais et incertitude",
-      "etapes": [
+          "titre": "Le ton confiant ne prouve rien",
+          "activiteType": "aVenir"
+        },
         {
-          "id": "doute-erreur",
+          "id": "herite-des-biais",
           "ordre": 8,
-          "titre": "Se tromper avec aplomb",
-          "activiteId": "intrus-erreur",
-          "activiteType": "intrus"
+          "titre": "L'IA hérite des biais",
+          "activiteType": "aVenir"
         },
         {
-          "id": "doute-biais",
+          "id": "question-fait-reponse",
           "ordre": 9,
-          "titre": "Le miroir des données",
-          "activiteId": "perroquet-biais",
-          "activiteType": "perroquet"
-        },
+          "titre": "La question fait la réponse",
+          "activiteType": "aVenir"
+        }
+      ]
+    },
+    {
+      "id": "verifier",
+      "nom": "Vérifier",
+      "couleur": "eau",
+      "sousTitre": "L'esprit critique en pratique",
+      "etapes": [
         {
-          "id": "doute-incertitude",
+          "id": "reflexe-croisement",
           "ordre": 10,
-          "titre": "Mesurer son doute",
-          "activiteId": "perroquet-incertitude",
-          "activiteType": "perroquet"
-        }
-      ]
-    },
-    {
-      "id": "col-des-decisions",
-      "nom": "Le Col des Décisions",
-      "couleur": "encre-douce",
-      "sousTitre": "Quand une IA aide à décider",
-      "etapes": [
+          "titre": "Le réflexe de croisement",
+          "activiteType": "aVenir"
+        },
         {
-          "id": "decisions-tri",
+          "id": "faux-parfait",
           "ordre": 11,
-          "titre": "Trier des candidatures",
-          "activiteId": "intrus-decision",
-          "activiteType": "intrus"
+          "titre": "Le faux parfait existe",
+          "activiteType": "aVenir"
         },
         {
-          "id": "decisions-recours",
+          "id": "verifier-provenance",
           "ordre": 12,
-          "titre": "Le droit de dire non",
-          "activiteId": "perroquet-recours",
-          "activiteType": "perroquet"
-        },
-        {
-          "id": "decisions-humain",
-          "ordre": 13,
-          "titre": "Garder la main",
-          "activiteId": "intrus-humain",
-          "activiteType": "intrus"
+          "titre": "Vérifier la provenance",
+          "activiteType": "aVenir"
         }
       ]
     },
     {
-      "id": "sommet-citoyen",
-      "nom": "Le Sommet Citoyen",
-      "couleur": "foret",
-      "sousTitre": "Vivre avec l'IA, en citoyen",
+      "id": "proteger",
+      "nom": "Protéger",
+      "couleur": "ocre",
+      "sousTitre": "Ses données et ses proches",
       "etapes": [
         {
-          "id": "citoyen-donnees",
+          "id": "ce-que-je-tape",
+          "ordre": 13,
+          "titre": "Ce que je tape peut être conservé",
+          "activiteType": "aVenir"
+        },
+        {
+          "id": "voix-clonee",
           "ordre": 14,
-          "titre": "Mes données, mon choix",
-          "activiteId": "perroquet-donnees",
-          "activiteType": "perroquet"
-        },
+          "titre": "La voix clonée et le faux message",
+          "activiteType": "aVenir"
+        }
+      ]
+    },
+    {
+      "id": "utiliser",
+      "nom": "Utiliser",
+      "couleur": "encre-douce",
+      "sousTitre": "L'IA propose, l'humain dispose",
+      "etapes": [
         {
-          "id": "citoyen-empreinte",
+          "id": "bonnes-taches",
           "ordre": 15,
-          "titre": "Le coût caché",
-          "activiteId": "intrus-empreinte",
-          "activiteType": "intrus"
+          "titre": "Les bonnes tâches pour l'IA",
+          "activiteType": "aVenir"
         },
         {
-          "id": "citoyen-usages",
+          "id": "ia-propose-je-dispose",
           "ordre": 16,
-          "titre": "À bon escient",
-          "activiteId": "perroquet-usages",
-          "activiteType": "perroquet"
-        },
+          "titre": "L'IA propose, je dispose",
+          "activiteType": "aVenir"
+        }
+      ]
+    },
+    {
+      "id": "transmettre",
+      "nom": "Transmettre",
+      "couleur": "rouge-gr",
+      "sousTitre": "L'épreuve du passeport",
+      "etapes": [
         {
-          "id": "citoyen-passeport",
+          "id": "a-ton-tour",
           "ordre": 17,
-          "titre": "Le tampon du sommet",
-          "activiteId": "intrus-sommet",
-          "activiteType": "intrus"
+          "titre": "À ton tour d'expliquer",
+          "activiteType": "aVenir"
         }
       ]
     }

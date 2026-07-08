@@ -2,7 +2,7 @@
   "id": "intrus-tour-eiffel",
   "type": "intrus",
   "notion": "La vérification des faits",
-  "phraseCristallisation": "Une IA peut glisser un détail faux au milieu de détails vrais, sans même le savoir. À nous de vérifier.",
+  "phraseCristallisation": "Une IA peut glisser un détail inventé au milieu d'une réponse juste, avec le même aplomb que pour le reste.",
   "dureeMin": 5,
   "fragilite": "haute",
   "donnees": {

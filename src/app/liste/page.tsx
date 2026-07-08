@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { parcours } from "@/content";
+import { territoiresActifs } from "@/content";
 import { cn } from "@/lib/cn";
 import { useProgress } from "@/lib/progress-context";
 import { statutEtape, type StatutEtape } from "@/lib/progression";
@@ -32,7 +32,7 @@ export default function ListePage() {
           Même contenu que la carte, présenté simplement. Le voyage suit l'ordre des étapes.
         </p>
 
-        {parcours.territoires.map((territoire) => (
+        {territoiresActifs.map((territoire) => (
           <section key={territoire.id} className="mb-8">
             <h2 className="font-titre text-xl font-bold">{territoire.nom}</h2>
             <p className="mb-3 text-sm text-encre-douce">{territoire.sousTitre}</p>

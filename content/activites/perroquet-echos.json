@@ -2,9 +2,9 @@
   "id": "perroquet-echos",
   "type": "perroquet",
   "notion": "La prédiction du mot suivant",
-  "phraseCristallisation": "Une IA ne sait pas : elle prédit le mot le plus probable, appris sur d'immenses quantités de textes.",
+  "phraseCristallisation": "Une IA ne comprend pas ce qu'elle dit : elle calcule la suite la plus probable.",
   "dureeMin": 4,
-  "fragilite": "moyenne",
+  "fragilite": "faible",
   "donnees": {
     "manches": [
       {

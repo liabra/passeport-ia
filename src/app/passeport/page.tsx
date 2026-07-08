@@ -1,6 +1,6 @@
 "use client";
 
-import { etapes, parcours } from "@/content";
+import { etapes, territoiresActifs } from "@/content";
 import { useProgress } from "@/lib/progress-context";
 import { estTerminee, nombreTampons } from "@/lib/progression";
 import { AppHeader } from "@/components/AppHeader";
@@ -30,7 +30,7 @@ export default function PasseportPage() {
           <span className="font-bold text-encre">{obtenus}</span> tampon(s) sur {total}.
         </p>
 
-        {parcours.territoires.map((territoire) => (
+        {territoiresActifs.map((territoire) => (
           <section key={territoire.id} className="mb-8">
             <h2 className="mb-3 font-titre text-xl font-bold">{territoire.nom}</h2>
             <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">

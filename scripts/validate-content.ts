@@ -6,7 +6,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { activiteSchema, parcoursSchema } from "../src/content/schema";
+import { activiteSchema, parcoursSchema, sentierSchema } from "../src/content/schema";
 
 const racine = fileURLToPath(new URL("..", import.meta.url));
 const dossierContenu = join(racine, "content");
@@ -59,6 +59,7 @@ for (const fichier of fichiersActivites) {
 if (parcours.success) {
   for (const territoire of parcours.data.territoires) {
     for (const etape of territoire.etapes) {
+      if (!etape.activiteId) continue;
       const type = typesParId.get(etape.activiteId);
       if (type && type !== etape.activiteType) {
         signaler("content/parcours.json", [
@@ -69,11 +70,33 @@ if (parcours.success) {
   }
 }
 
+// 4) Sentier de découverte : forme + cohérence avec le canonique
+const sentierRaw = lireJson(join(dossierContenu, "sentier-decouverte.json"));
+const sentier = sentierSchema.safeParse(sentierRaw);
+if (!sentier.success) {
+  signaler(
+    "content/sentier-decouverte.json",
+    sentier.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`),
+  );
+} else if (parcours.success) {
+  const etapesCanon = parcours.data.territoires.flatMap((t) => t.etapes);
+  for (const id of sentier.data.etapes) {
+    const etape = etapesCanon.find((e) => e.id === id);
+    if (!etape) {
+      signaler("content/sentier-decouverte.json", [`« ${id} » : id absent du parcours canonique`]);
+    } else if (etape.activiteType === "aVenir" || !etape.activiteId) {
+      signaler("content/sentier-decouverte.json", [
+        `« ${id} » : étape « aVenir », sans activité jouable`,
+      ]);
+    }
+  }
+}
+
 if (erreurs > 0) {
   console.error(`\nContenu invalide : ${erreurs} problème(s).`);
   process.exit(1);
 }
 
 console.log(
-  `Contenu valide : parcours OK, ${fichiersActivites.length} activité(s) validée(s).`,
+  `Contenu valide : parcours OK, ${fichiersActivites.length} activité(s) validée(s), sentier OK (${sentier.success ? sentier.data.etapes.length : 0} étape(s)).`,
 );

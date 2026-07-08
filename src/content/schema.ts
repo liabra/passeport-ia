@@ -188,9 +188,14 @@ export const etapeSchema = z.object({
   id: z.string().min(1),
   ordre: z.number().int().min(1),
   titre: z.string().min(1),
-  /** Id de l'activité rendue à cette étape (peut ne pas encore exister). */
-  activiteId: z.string().min(1),
-  activiteType: z.enum(TYPES_ACTIVITE),
+  /**
+   * Type de l'étape : un type d'activité existant, ou « aVenir » pour une étape
+   * du parcours canonique dont l'activité n'est pas encore développée (écran
+   * placeholder). Le chemin reste bloquant : on ne saute pas d'étape.
+   */
+  activiteType: z.enum([...TYPES_ACTIVITE, "aVenir"]),
+  /** Id de l'activité rendue à cette étape ; absent pour les étapes « aVenir ». */
+  activiteId: z.string().min(1).optional(),
   /** Court « pont vers le réel » optionnel, présenté après la récompense. */
   pontVersLeReel: z
     .object({
@@ -198,7 +203,24 @@ export const etapeSchema = z.object({
       url: z.string().url(),
     })
     .optional(),
-});
+})
+  .superRefine((etape, ctx) => {
+    if (etape.activiteType === "aVenir") {
+      if (etape.activiteId) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Étape « ${etape.id} » de type aVenir : elle ne doit pas porter d'activiteId`,
+          path: ["activiteId"],
+        });
+      }
+    } else if (!etape.activiteId) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Étape « ${etape.id} » de type « ${etape.activiteType} » : activiteId manquant`,
+        path: ["activiteId"],
+      });
+    }
+  });
 
 export const territoireSchema = z.object({
   id: z.string().min(1),
@@ -239,6 +261,22 @@ export const parcoursSchema = z
     });
   });
 
+/* ------------------------------------------------------------------ */
+/* Sentier de découverte (projection jouable du parcours canonique)    */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Sous-ensemble jouable, à plat (pas de territoires). Chaque entrée référence
+ * une étape du parcours canonique **par son id** — aucun contenu n'est dupliqué.
+ * La cohérence (id existant, activité réelle, jamais « aVenir ») est vérifiée
+ * dans le loader, `validate:content` et les tests, car elle dépend du parcours.
+ */
+export const sentierSchema = z.object({
+  titre: z.string().min(1),
+  sousTitre: z.string().min(1),
+  etapes: z.array(z.string().min(1)).min(1),
+});
+
 export type Fragilite = z.infer<typeof fragiliteSchema>;
 export type Activite = z.infer<typeof activiteSchema>;
 export type ActivitePerroquet = Extract<Activite, { type: "perroquet" }>;
@@ -246,3 +284,4 @@ export type ActiviteIntrus = Extract<Activite, { type: "intrus" }>;
 export type Etape = z.infer<typeof etapeSchema>;
 export type Territoire = z.infer<typeof territoireSchema>;
 export type Parcours = z.infer<typeof parcoursSchema>;
+export type Sentier = z.infer<typeof sentierSchema>;

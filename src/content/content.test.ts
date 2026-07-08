@@ -1,27 +1,83 @@
 import { describe, expect, it } from "vitest";
-import { etapes, getActivite, nombreEtapes, parcours } from "./index";
+import {
+  erreursSentier,
+  etapes,
+  getActivite,
+  modeParcours,
+  nombreEtapes,
+  parcoursCanonique,
+  sentier,
+} from "./index";
 
-describe("contenu du parcours", () => {
+const etapesCanoniques = parcoursCanonique.territoires.flatMap((t) => t.etapes);
+
+describe("parcours canonique (source de vérité, toujours complet)", () => {
   it("compte 6 territoires et 17 étapes (Noyau citoyen)", () => {
-    expect(parcours.territoires).toHaveLength(6);
-    expect(nombreEtapes).toBe(17);
+    expect(parcoursCanonique.territoires).toHaveLength(6);
+    expect(etapesCanoniques).toHaveLength(17);
   });
 
-  it("numérote les étapes de 1 à N sans trou", () => {
+  it("numérote les étapes de 1 à 17 sans trou", () => {
+    const ordres = etapesCanoniques.map((e) => e.ordre).sort((a, b) => a - b);
+    expect(ordres).toEqual(Array.from({ length: 17 }, (_, i) => i + 1));
+  });
+
+  it("rattache les deux activités développées aux étapes canoniques 2 et 6", () => {
+    const perroquet = etapesCanoniques.find((e) => e.ordre === 2)!;
+    const intrus = etapesCanoniques.find((e) => e.ordre === 6)!;
+    expect(perroquet.activiteType).toBe("perroquet");
+    expect(perroquet.activiteId).toBe("perroquet-echos");
+    expect(intrus.activiteType).toBe("intrus");
+    expect(intrus.activiteId).toBe("intrus-tour-eiffel");
+    expect(getActivite(perroquet.activiteId!)).not.toBeNull();
+    expect(getActivite(intrus.activiteId!)).not.toBeNull();
+  });
+
+  it("marque les autres étapes comme « aVenir » sans activiteId", () => {
+    const aVenir = etapesCanoniques.filter((e) => e.activiteType === "aVenir");
+    expect(aVenir).toHaveLength(15);
+    for (const e of aVenir) expect(e.activiteId).toBeUndefined();
+  });
+});
+
+describe("sentier de découverte (projection jouable)", () => {
+  it("ne référence que des étapes canoniques réellement jouables", () => {
+    expect(erreursSentier()).toEqual([]);
+  });
+
+  it("chaque id du sentier existe dans le canonique avec une activité (jamais aVenir)", () => {
+    for (const id of sentier.etapes) {
+      const etape = etapesCanoniques.find((e) => e.id === id);
+      expect(etape, `étape « ${id} » absente du canonique`).toBeDefined();
+      expect(etape!.activiteType).not.toBe("aVenir");
+      expect(etape!.activiteId).toBeDefined();
+    }
+  });
+
+  it("suit l'ordre pédagogique relatif : perroquet puis intrus", () => {
+    expect(sentier.etapes).toEqual(["perroquet-devin", "cherche-intrus"]);
+  });
+});
+
+describe("parcours actif (dépend de NEXT_PUBLIC_PARCOURS_ACTIF)", () => {
+  it("expose des étapes numérotées 1..N sans trou", () => {
     const ordres = etapes.map((e) => e.ordre);
     expect(ordres).toEqual(Array.from({ length: etapes.length }, (_, i) => i + 1));
   });
 
-  it("place les deux activités jouables en tête de parcours", () => {
-    expect(etapes[0]!.activiteType).toBe("perroquet");
-    expect(etapes[1]!.activiteType).toBe("intrus");
-    expect(getActivite(etapes[0]!.activiteId)).not.toBeNull();
-    expect(getActivite(etapes[1]!.activiteId)).not.toBeNull();
-  });
-
-  it("renvoie null pour une activité pas encore fabriquée", () => {
-    expect(getActivite("activite-inexistante")).toBeNull();
-  });
+  if (modeParcours === "sentier") {
+    it("mode sentier : 2 étapes, toutes jouables de bout en bout", () => {
+      expect(nombreEtapes).toBe(2);
+      for (const e of etapes) {
+        expect(e.activiteType).not.toBe("aVenir");
+        expect(getActivite(e.activiteId!)).not.toBeNull();
+      }
+    });
+  } else {
+    it("mode complet : 17 étapes fidèles au référentiel", () => {
+      expect(nombreEtapes).toBe(17);
+    });
+  }
 });
 
 describe("intégrité des activités", () => {

@@ -27,7 +27,35 @@ npm test                 # tests vitest (logique + contenu)
 npm run check:links      # vérifie que les URL externes de /content répondent en 200
 ```
 
-Prérequis : Node ≥ 18.18.
+Prérequis : Node ≥ 20.9.
+
+---
+
+## Deux parcours, une source de vérité
+
+Le contenu pédagogique complet vit dans `content/parcours.json` (6 territoires,
+17 étapes du « Noyau citoyen ») : c'est la **source de vérité**, intangible,
+alignée sur `docs/referentiel.md`. Les étapes pas encore développées y sont
+marquées `"activiteType": "aVenir"` (écran « en cours de fabrication »).
+
+`content/sentier-decouverte.json` est une **projection jouable** : un
+sous-ensemble séquentiel qui ne référence (par `id`, sans duplication) que des
+étapes déjà dotées d'une activité. C'est le mode de démonstration, jouable de
+bout en bout.
+
+La variable `NEXT_PUBLIC_PARCOURS_ACTIF` choisit lequel s'affiche :
+
+```bash
+# Sentier de découverte, entièrement jouable (défaut)
+npm run dev
+
+# Voyage canonique complet (17 étapes, avec placeholders « à venir »)
+NEXT_PUBLIC_PARCOURS_ACTIF=complet npm run dev
+```
+
+Le blocage linéaire strict (« on ne saute pas d'étape ») est **identique** dans
+les deux modes ; seule la liste des étapes change. `src/content/getParcoursActif()`
+est l'unique point d'entrée — aucun écran ne lit un fichier de parcours en dur.
 
 ---
 
@@ -35,7 +63,8 @@ Prérequis : Node ≥ 18.18.
 
 ```
 content/                 Contenu éditorial (découplé du code, validé par zod)
-  parcours.json          Territoires et étapes (le « Noyau citoyen » : 17 étapes)
+  parcours.json          Parcours canonique : 6 territoires, 17 étapes (source de vérité)
+  sentier-decouverte.json  Projection jouable (référence des étapes par id)
   activites/*.json       Une activité par fichier
 scripts/
   validate-content.ts    Validation du contenu (CI + local)

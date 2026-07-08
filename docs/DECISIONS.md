@@ -99,3 +99,58 @@ Next 16, ex-*middleware*) avec un *nonce*
 nosniff, Referrer-Policy, Permissions-Policy) sont statiques dans `next.config.mjs`.
 `style-src` conserve `'unsafe-inline'` (styles injectés par Tailwind/Next, sans
 mécanisme de nonce pour les attributs `style`).
+
+---
+
+## 7. Le référentiel pédagogique est la source de vérité (règle permanente)
+
+**Contexte.** Lors du premier jet, le contenu du parcours (noms de territoires,
+titres d'étapes, ordre, phrases de cristallisation) avait été **inventé** au lieu
+de suivre `docs/referentiel.md`. Réaligné dans un second temps.
+
+**Règle intangible.** *Aucun contenu pédagogique — nom de territoire, titre
+d'étape, phrase de cristallisation, texte de révélation — ne doit être créé ou
+reformulé sans instruction explicite. En cas de manque, poser la question plutôt
+qu'inventer.* `docs/referentiel.md` fait foi.
+
+**Conséquences.**
+- `content/parcours.json` reprend exactement les 6 territoires / 17 étapes du
+  Noyau citoyen dans l'ordre canonique.
+- Les phrases de cristallisation des activités sont copiées mot pour mot depuis le
+  référentiel (notions 2 et 7).
+- Les étapes non encore développées portent `"activiteType": "aVenir"` (sans
+  `activiteId`) : le schéma zod l'exige, et elles affichent l'écran « en cours de
+  fabrication ». Le chemin reste bloquant.
+- **Note produit** : le CNIL (`https://www.cnil.fr/fr/intelligence-artificielle-ia`)
+  a été retiré du parcours ; il est destiné au futur écran « À propos », pas à un
+  « pont vers le réel » d'étape.
+- **Conséquence** : dans l'ordre canonique, l'étape 1 est « aVenir »
+  (placeholder). Le chemin étant bloquant, les deux activités développées ne
+  seraient pas atteignables par progression linéaire. Résolu par la §8 (Sentier
+  de découverte), sans affaiblir le blocage.
+
+---
+
+## 8. Deux parcours, une source de vérité (Sentier de découverte)
+
+**Contexte.** Le référentiel et l'ordre canonique sont intangibles, mais l'ordre
+canonique place une étape « aVenir » en tête : avec un chemin strictement
+bloquant, rien de jouable n'était atteignable. On refuse d'affaiblir le blocage
+ou de rendre les placeholders traversables.
+
+**Décision.** Introduire une **séparation** entre l'ordre pédagogique de référence
+et ce qui est jouable aujourd'hui.
+- `content/parcours.json` reste la source de vérité complète (inchangée).
+- `content/sentier-decouverte.json` décrit un sous-ensemble séquentiel, à plat,
+  qui **référence des étapes canoniques par `id`** (zéro duplication de contenu :
+  mêmes activités, mêmes ponts-vers-le-réel).
+- `NEXT_PUBLIC_PARCOURS_ACTIF` bascule l'affichage : `sentier` (défaut, jouable
+  de bout en bout) ou `complet` (voyage canonique intégral). Simple bascule, aucun
+  secret.
+- `src/content/getParcoursActif()` est l'unique point d'entrée ; carte, liste et
+  passeport le consomment. Le blocage linéaire strict est identique dans les deux
+  modes ; seule la liste des étapes change.
+
+**Le référentiel et l'ordre canonique restent intangibles ; le Sentier de
+découverte est une projection jouable qui grandit à mesure que les activités sont
+produites, jusqu'à fusion avec le parcours complet au lancement.**

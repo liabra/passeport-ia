@@ -45,7 +45,9 @@ describe("progression", () => {
     const etat = avecTerminees(premiere.id);
     expect(statutEtape(etat, premiere.id)).toBe("termine");
     expect(statutEtape(etat, deuxieme.id)).toBe("courante");
-    expect(statutEtape(etat, etapes[2]!.id)).toBe("avenir");
+    // Une éventuelle 3e étape (mode complet) n'est pas encore atteinte.
+    const troisieme = etapes[2];
+    if (troisieme) expect(statutEtape(etat, troisieme.id)).toBe("avenir");
   });
 
   it("compte les tampons", () => {
