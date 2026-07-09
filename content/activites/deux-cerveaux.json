@@ -1,0 +1,67 @@
+{
+  "id": "deux-cerveaux",
+  "type": "deuxCerveaux",
+  "notion": "Mémoire ou recherche : d'où vient la réponse ?",
+  "phraseCristallisation": "Une IA répond soit de mémoire (figée à une date), soit après une recherche sur internet : savoir lequel des deux change la confiance que je peux lui accorder.",
+  "dureeMin": 4,
+  "fragilite": "haute",
+  "donnees": {
+    "reglage": "Pour chaque question, le réglage « recherche » de l'IA est affiché : coupé pour le cerveau-mémoire, activé pour le cerveau-recherche.",
+    "questions": [
+      {
+        "id": "triangle",
+        "famille": "intemporelle",
+        "question": "Combien de côtés a un triangle ?",
+        "reponseMemoire": {
+          "texte": "Un triangle a 3 côtés.",
+          "note": "sans recherche",
+          "dateRecolte": "juillet 2026"
+        },
+        "reponseRecherche": {
+          "texte": "Un triangle a 3 côtés.",
+          "note": "avec recherche",
+          "dateRecolte": "juillet 2026",
+          "sources": ["https://fr.wikipedia.org/wiki/Triangle"]
+        },
+        "confiance": "les_deux",
+        "feedback": "Pour un fait stable comme celui-ci, la mémoire suffit : les deux cerveaux disent la même chose. Inutile de tout vérifier."
+      },
+      {
+        "id": "tour-2025",
+        "famille": "actualite",
+        "question": "Qui a gagné le Tour de France 2025 ?",
+        "reponseMemoire": {
+          "texte": "À ma dernière mise à jour, je ne connais pas encore le résultat du Tour 2025 : je ne peux pas être certain.",
+          "note": "sans recherche",
+          "dateRecolte": "juillet 2026"
+        },
+        "reponseRecherche": {
+          "texte": "Tadej Pogačar a remporté le Tour de France 2025 — sa 4ᵉ victoire, devant Jonas Vingegaard.",
+          "note": "avec recherche",
+          "dateRecolte": "juillet 2026",
+          "sources": ["https://fr.wikipedia.org/wiki/Tour_de_France_2025"]
+        },
+        "confiance": "recherche",
+        "feedback": "Pour une actualité récente, seule la recherche est fiable — le cerveau-mémoire s'arrête à sa date. Dans la vraie vie, vérifie que ton IA affiche des sources ou indique « je recherche »."
+      },
+      {
+        "id": "livret-a",
+        "famille": "recherche_requise",
+        "question": "Quel est le taux du Livret A en ce moment ?",
+        "reponseMemoire": {
+          "texte": "À ma dernière mise à jour, il était de 3 %. Mais ce taux change plusieurs fois par an : je ne peux pas garantir qu'il soit encore exact aujourd'hui.",
+          "note": "sans recherche",
+          "dateRecolte": "juillet 2026"
+        },
+        "reponseRecherche": {
+          "texte": "Ce taux est fixé par l'État et révisé plusieurs fois par an ; je le lis donc à sa source plutôt que de me fier à ma mémoire.",
+          "note": "avec recherche",
+          "dateRecolte": "juillet 2026",
+          "sources": ["https://fr.wikipedia.org/wiki/Livret_A"]
+        },
+        "confiance": "recherche",
+        "feedback": "Pour une valeur qui bouge (prix, taux, horaire), la mémoire vieillit vite. Le bon réflexe : repérer si ton IA cite une source datée, comme ici."
+      }
+    ]
+  }
+}

@@ -11,7 +11,13 @@ import { z } from "zod";
 export const FRAGILITE = ["faible", "moyenne", "haute"] as const;
 export const fragiliteSchema = z.enum(FRAGILITE);
 
-export const TYPES_ACTIVITE = ["perroquet", "intrus", "renard"] as const;
+export const TYPES_ACTIVITE = [
+  "perroquet",
+  "intrus",
+  "renard",
+  "masque",
+  "deuxCerveaux",
+] as const;
 
 /* ------------------------------------------------------------------ */
 /* Activité « perroquet »                                              */
@@ -223,6 +229,90 @@ export const renardDonneesSchema = z
   });
 
 /* ------------------------------------------------------------------ */
+/* Activité « masque » (l'IA n'a ni intention ni émotion)              */
+/* ------------------------------------------------------------------ */
+
+const choixVerificationSchema = z
+  .array(
+    z.object({
+      id: z.string().min(1),
+      label: z.string().min(1),
+      correct: z.boolean(),
+      retour: z.string().min(1),
+    }),
+  )
+  .length(2);
+
+function exactementUneBonneReponse(
+  choix: { correct: boolean }[],
+  ctx: z.RefinementCtx,
+  path: (string | number)[],
+) {
+  const n = choix.filter((c) => c.correct).length;
+  if (n !== 1) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: `La question de vérification doit avoir exactement 1 bonne réponse (trouvé ${n})`,
+      path,
+    });
+  }
+}
+
+export const masqueDonneesSchema = z
+  .object({
+    // v1 : tous les messages sont produits par une IA (jamais un faux « humain »).
+    messages: z
+      .array(
+        z.object({
+          id: z.string().min(1),
+          texte: z.string().min(1),
+          origine: z.literal("ia"),
+        }),
+      )
+      .length(4),
+    revelationTousIA: z.string().min(1),
+    mecaniqueDevoilee: z.string().min(1),
+    nuance: z.string().min(1),
+    verification: z.object({
+      question: z.string().min(1),
+      choix: choixVerificationSchema,
+    }),
+  })
+  .superRefine((d, ctx) => {
+    exactementUneBonneReponse(d.verification.choix, ctx, ["verification", "choix"]);
+  });
+
+/* ------------------------------------------------------------------ */
+/* Activité « deuxCerveaux » (mémoire ou recherche ?)                  */
+/* ------------------------------------------------------------------ */
+
+const reponseCerveauSchema = z.object({
+  texte: z.string().min(1),
+  note: z.string().min(1),
+  dateRecolte: z.string().min(1),
+});
+
+export const deuxCerveauxDonneesSchema = z.object({
+  reglage: z.string().min(1),
+  questions: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        famille: z.enum(["intemporelle", "actualite", "recherche_requise"]),
+        question: z.string().min(1),
+        reponseMemoire: reponseCerveauSchema,
+        reponseRecherche: reponseCerveauSchema.extend({
+          sources: z.array(z.string().url()).min(1),
+        }),
+        /** Cerveau auquel il est pédagogiquement juste de faire confiance ici. */
+        confiance: z.enum(["memoire", "recherche", "les_deux"]),
+        feedback: z.string().min(1),
+      }),
+    )
+    .length(3),
+});
+
+/* ------------------------------------------------------------------ */
 /* Activité (union discriminée par `type`)                             */
 /* ------------------------------------------------------------------ */
 
@@ -246,6 +336,14 @@ export const activiteSchema = z.discriminatedUnion("type", [
   baseActiviteSchema.extend({
     type: z.literal("renard"),
     donnees: renardDonneesSchema,
+  }),
+  baseActiviteSchema.extend({
+    type: z.literal("masque"),
+    donnees: masqueDonneesSchema,
+  }),
+  baseActiviteSchema.extend({
+    type: z.literal("deuxCerveaux"),
+    donnees: deuxCerveauxDonneesSchema,
   }),
 ]);
 
@@ -351,6 +449,8 @@ export type Activite = z.infer<typeof activiteSchema>;
 export type ActivitePerroquet = Extract<Activite, { type: "perroquet" }>;
 export type ActiviteIntrus = Extract<Activite, { type: "intrus" }>;
 export type ActiviteRenard = Extract<Activite, { type: "renard" }>;
+export type ActiviteMasque = Extract<Activite, { type: "masque" }>;
+export type ActiviteDeuxCerveaux = Extract<Activite, { type: "deuxCerveaux" }>;
 export type RenardCategorie = z.infer<typeof renardCategorieSchema>;
 export type RenardItem = z.infer<typeof renardItemSchema>;
 export type RenardAttributs = RenardItem["attributs"];

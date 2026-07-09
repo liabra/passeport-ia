@@ -35,13 +35,15 @@
           "id": "ni-intention-ni-emotion",
           "ordre": 4,
           "titre": "L'IA n'a ni intention, ni émotion",
-          "activiteType": "aVenir"
+          "activiteType": "masque",
+          "activiteId": "masque-emotions"
         },
         {
           "id": "memoire-ou-recherche",
           "ordre": 5,
           "titre": "Mémoire ou recherche ?",
-          "activiteType": "aVenir"
+          "activiteType": "deuxCerveaux",
+          "activiteId": "deux-cerveaux"
         }
       ]
     },

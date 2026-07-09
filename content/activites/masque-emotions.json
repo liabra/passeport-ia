@@ -1,0 +1,52 @@
+{
+  "id": "masque-emotions",
+  "type": "masque",
+  "notion": "L'IA n'a ni intention, ni émotion",
+  "phraseCristallisation": "Si une IA dit \"je suis désolée\", elle n'est pas désolée : elle imite le langage des émotions.",
+  "dureeMin": 3,
+  "fragilite": "moyenne",
+  "donnees": {
+    "messages": [
+      {
+        "id": "gratitude",
+        "texte": "Merci du fond du cœur pour ton message — il m'a vraiment touchée.",
+        "origine": "ia"
+      },
+      {
+        "id": "excuse",
+        "texte": "Je suis sincèrement désolée pour ce contretemps, je comprends que ce soit pénible.",
+        "origine": "ia"
+      },
+      {
+        "id": "encouragement",
+        "texte": "Je crois en toi : tu es bien plus près du but que tu ne le crois.",
+        "origine": "ia"
+      },
+      {
+        "id": "nostalgie",
+        "texte": "Ça me rappelle de beaux moments… comme le temps passe vite, tu ne trouves pas ?",
+        "origine": "ia"
+      }
+    ],
+    "revelationTousIA": "Tu n'as pas échoué — tu as fait ce que nous faisons tous : entendre une émotion, supposer un cœur derrière.",
+    "mecaniqueDevoilee": "L'IA a vu des millions de fois ces mots dans ces contextes. Elle les rejoue. Aucun ressenti, un motif appris.",
+    "nuance": "Ces mots peuvent quand même te faire du bien, et ce n'est pas ridicule. Mais savoir qu'il n'y a pas d'émotion derrière change la confiance que tu accordes — surtout si une IA te dit \"je te comprends, fais-moi confiance\".",
+    "verification": {
+      "question": "Une IA qui écrit \"je te comprends\"…",
+      "choix": [
+        {
+          "id": "rejoue",
+          "label": "rejoue des mots vus souvent, sans rien ressentir",
+          "correct": true,
+          "retour": "Exactement. Ce sont des mots appris et rejoués, pas une émotion vécue. Ça peut te faire du bien, mais il n'y a personne qui ressent derrière."
+        },
+        {
+          "id": "empathie",
+          "label": "ressent de l'empathie",
+          "correct": false,
+          "retour": "C'est ce que les mots suggèrent, et c'est bien normal de le croire. Mais l'IA imite le langage de l'empathie sans rien éprouver."
+        }
+      ]
+    }
+  }
+}

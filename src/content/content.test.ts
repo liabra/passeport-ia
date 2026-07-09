@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   erreursSentier,
@@ -33,16 +35,23 @@ describe("parcours canonique (source de vérité, toujours complet)", () => {
     expect(getActivite(intrus.activiteId!)).not.toBeNull();
   });
 
-  it("rattache l'activité renard à l'étape canonique 3", () => {
-    const renard = etapesCanoniques.find((e) => e.ordre === 3)!;
-    expect(renard.activiteType).toBe("renard");
-    expect(renard.activiteId).toBe("renard-fruits");
-    expect(getActivite(renard.activiteId!)).not.toBeNull();
+  it("rattache les activités du territoire 1 aux étapes 3, 4 et 5", () => {
+    const attendu: Record<number, { type: string; id: string }> = {
+      3: { type: "renard", id: "renard-fruits" },
+      4: { type: "masque", id: "masque-emotions" },
+      5: { type: "deuxCerveaux", id: "deux-cerveaux" },
+    };
+    for (const [ordre, { type, id }] of Object.entries(attendu)) {
+      const etape = etapesCanoniques.find((e) => e.ordre === Number(ordre))!;
+      expect(etape.activiteType).toBe(type);
+      expect(etape.activiteId).toBe(id);
+      expect(getActivite(etape.activiteId!)).not.toBeNull();
+    }
   });
 
   it("marque les autres étapes comme « aVenir » sans activiteId", () => {
     const aVenir = etapesCanoniques.filter((e) => e.activiteType === "aVenir");
-    expect(aVenir).toHaveLength(14);
+    expect(aVenir).toHaveLength(12);
     for (const e of aVenir) expect(e.activiteId).toBeUndefined();
   });
 });
@@ -61,8 +70,14 @@ describe("sentier de découverte (projection jouable)", () => {
     }
   });
 
-  it("suit l'ordre pédagogique canonique : perroquet, renard, intrus", () => {
-    expect(sentier.etapes).toEqual(["perroquet-devin", "apprend-par-exemple", "cherche-intrus"]);
+  it("suit l'ordre pédagogique canonique du Territoire 1", () => {
+    expect(sentier.etapes).toEqual([
+      "perroquet-devin",
+      "apprend-par-exemple",
+      "ni-intention-ni-emotion",
+      "memoire-ou-recherche",
+      "cherche-intrus",
+    ]);
   });
 });
 
@@ -73,8 +88,8 @@ describe("parcours actif (dépend de NEXT_PUBLIC_PARCOURS_ACTIF)", () => {
   });
 
   if (modeParcours === "sentier") {
-    it("mode sentier : 3 étapes, toutes jouables de bout en bout", () => {
-      expect(nombreEtapes).toBe(3);
+    it("mode sentier : 5 étapes, toutes jouables de bout en bout", () => {
+      expect(nombreEtapes).toBe(5);
       for (const e of etapes) {
         expect(e.activiteType).not.toBe("aVenir");
         expect(getActivite(e.activiteId!)).not.toBeNull();
@@ -106,4 +121,52 @@ describe("intégrité des activités", () => {
       expect(inventes).toHaveLength(1);
     }
   });
+
+  it("le masque ne présente jamais un message comme humain (v1 : tous « ia »)", () => {
+    const a = getActivite("masque-emotions");
+    expect(a?.type).toBe("masque");
+    if (a?.type === "masque") {
+      expect(a.donnees.messages).toHaveLength(4);
+      for (const m of a.donnees.messages) expect(m.origine).toBe("ia");
+    }
+  });
+
+  it("deux-cerveaux cite une source réelle et affiche une date de récolte", () => {
+    const a = getActivite("deux-cerveaux");
+    expect(a?.type).toBe("deuxCerveaux");
+    if (a?.type === "deuxCerveaux") {
+      const tour = a.donnees.questions.find((q) => q.famille === "actualite")!;
+      expect(tour.reponseRecherche.sources).toContain(
+        "https://fr.wikipedia.org/wiki/Tour_de_France_2025",
+      );
+      expect(tour.reponseRecherche.texte).toContain("Pogačar");
+      for (const q of a.donnees.questions) {
+        expect(q.reponseMemoire.dateRecolte).not.toBe("");
+        expect(q.reponseRecherche.dateRecolte).not.toBe("");
+      }
+    }
+  });
+});
+
+describe("intégrité §7 : cristallisations identiques au référentiel", () => {
+  const referentiel = readFileSync(
+    fileURLToPath(new URL("../../docs/referentiel.md", import.meta.url)),
+    "utf8",
+  );
+
+  const idsDeveloppes = [
+    "perroquet-echos",
+    "renard-fruits",
+    "masque-emotions",
+    "deux-cerveaux",
+    "intrus-tour-eiffel",
+  ];
+
+  for (const id of idsDeveloppes) {
+    it(`« ${id} » : phrase de cristallisation présente mot pour mot dans le référentiel`, () => {
+      const a = getActivite(id);
+      expect(a, `activité ${id} introuvable`).not.toBeNull();
+      expect(referentiel).toContain(a!.phraseCristallisation);
+    });
+  }
 });

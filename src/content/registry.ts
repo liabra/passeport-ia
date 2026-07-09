@@ -1,6 +1,8 @@
 import perroquetEchos from "../../content/activites/perroquet-echos.json";
 import intrusTourEiffel from "../../content/activites/intrus-tour-eiffel.json";
 import renardFruits from "../../content/activites/renard-fruits.json";
+import masqueEmotions from "../../content/activites/masque-emotions.json";
+import deuxCerveaux from "../../content/activites/deux-cerveaux.json";
 
 /**
  * Registre des activités.
@@ -12,4 +14,10 @@ import renardFruits from "../../content/activites/renard-fruits.json";
  * Une étape du parcours qui référence un `activiteId` absent de ce registre
  * affiche automatiquement l'écran « en cours de fabrication ».
  */
-export const activitesRaw: unknown[] = [perroquetEchos, intrusTourEiffel, renardFruits];
+export const activitesRaw: unknown[] = [
+  perroquetEchos,
+  intrusTourEiffel,
+  renardFruits,
+  masqueEmotions,
+  deuxCerveaux,
+];
