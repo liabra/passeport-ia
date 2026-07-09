@@ -7,8 +7,17 @@ export function estTerminee(etat: ProgressState, etapeId: string): boolean {
   return Boolean(etat.resultats[etapeId]);
 }
 
+/**
+ * Nombre de tampons du parcours ACTIF uniquement.
+ *
+ * On ne compte jamais les clés brutes du stockage : la progression est
+ * persistée par `id` d'étape et survit aux évolutions du contenu (étapes
+ * insérées, ids retirés, bascule sentier/complet). Des résultats orphelins
+ * — ids absents du parcours actif — peuvent donc exister en localStorage ;
+ * ils sont conservés (utile si l'étape revient) mais exclus des compteurs.
+ */
 export function nombreTampons(etat: ProgressState): number {
-  return Object.keys(etat.resultats).length;
+  return etapes.filter((e) => estTerminee(etat, e.id)).length;
 }
 
 /**
